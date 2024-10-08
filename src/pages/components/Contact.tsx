@@ -1,7 +1,8 @@
 import React from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { sendContactForm } from "../lib/api";
 
 const ContactSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -38,11 +39,16 @@ const Contact = () => {
           message: "",
         }}
         validationSchema={ContactSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            await sendContactForm(values);
+            alert("Form submitted successfully!");
+          } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("Error submitting form. Please try again.");
+          } finally {
             setSubmitting(false);
-          }, 400);
+          }
         }}
       >
         {({
@@ -214,13 +220,35 @@ const Contact = () => {
             />
 
             <Button
-              className="font-bold text-white bg-green-600"
+              className="font-bold text-white bg-green-600 h-[36.5px]"
               type="submit"
-              disabled={isSubmitting}
+              disabled={
+                Boolean(touched.message && errors.message) ||
+                Boolean(touched.firstName && errors.firstName) ||
+                Boolean(touched.lastName && errors.lastName) ||
+                Boolean(touched.email && errors.email) ||
+                Boolean(touched.phone && errors.phone)
+              }
               variant="contained"
               color="primary"
+              sx={{
+                "&:disabled": {
+                  cursor: "not-allowed",
+                  backgroundColor: "lightgray",
+                  color: "darkgray",
+                },
+              }}
             >
-              Send
+              {isSubmitting ? (
+                <>
+                  <CircularProgress
+                    size={24}
+                    sx={{ position: "absolute", color: "white" }}
+                  />{" "}
+                </>
+              ) : (
+                "Send"
+              )}
             </Button>
           </Form>
         )}
