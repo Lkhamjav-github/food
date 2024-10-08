@@ -220,7 +220,7 @@ const Contact = () => {
             />
 
             <Button
-              className="font-bold text-white bg-green-600 h-[36.5px]"
+              className="font-bold text-white h-[36.5px]"
               type="submit"
               disabled={
                 Boolean(touched.message && errors.message) ||
@@ -230,8 +230,11 @@ const Contact = () => {
                 Boolean(touched.phone && errors.phone)
               }
               variant="contained"
-              color="primary"
               sx={{
+                backgroundColor: isSubmitting ? "lightgreen" : "green", // Primary өнгийг ногоон болгож байна
+                "&:hover": {
+                  backgroundColor: "darkgreen", // Hover үед өнгө өөрчлөх
+                },
                 "&:disabled": {
                   cursor: "not-allowed",
                   backgroundColor: "lightgray",
