@@ -231,9 +231,9 @@ const Contact = () => {
               }
               variant="contained"
               sx={{
-                backgroundColor: isSubmitting ? "lightgreen" : "green", // Primary өнгийг ногоон болгож байна
+                backgroundColor: isSubmitting ? "lightgreen" : "green", 
                 "&:hover": {
-                  backgroundColor: "darkgreen", // Hover үед өнгө өөрчлөх
+                  backgroundColor: "darkgreen", 
                 },
                 "&:disabled": {
                   cursor: "not-allowed",
