@@ -231,9 +231,9 @@ const Contact = () => {
               }
               variant="contained"
               sx={{
-                backgroundColor: isSubmitting ? "lightgreen" : "green", 
+                backgroundColor: isSubmitting ? "lightgreen" : "green",
                 "&:hover": {
-                  backgroundColor: "darkgreen", 
+                  backgroundColor: "darkgreen",
                 },
                 "&:disabled": {
                   cursor: "not-allowed",
